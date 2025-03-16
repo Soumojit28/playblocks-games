@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance;
 
+    public static bool isGameOver = false;
+
     private static float initialTimeScale;
 
     void Awake()
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
         int obstacles = ScoreManager.GetObstaclesDestroyed();
 
         Time.timeScale = 0f;
-        FindFirstObjectByType<SpaceShipController>().enabled = false;
+        isGameOver = true;
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
         WebGLGameOver (ships, obstacles);
@@ -34,9 +36,10 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame()
     {
-        FindFirstObjectByType<SpaceShipController>().enabled = true;
         FindFirstObjectByType<RockSpawner>().enabled = true;
         FindFirstObjectByType<EnemySpawner>().enabled = true;
+
+        isGameOver = false;
     }
 
     public static void PauseGame()
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         Time.timeScale = initialTimeScale;
+        isGameOver = false;
     }
 
     void OnApplicationQuit()

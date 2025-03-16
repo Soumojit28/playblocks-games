@@ -28,19 +28,23 @@ public class ScoreManager : MonoBehaviour
         obstaclesDestroyed = 0;
     }
 
-    public static void ShipDestroyed () {
+    public static void ShipDestroyed()
+    {
         shipsDestroyed++;
     }
 
-    public static void ObstacleDestroyed () {
+    public static void ObstacleDestroyed()
+    {
         obstaclesDestroyed++;
     }
 
-    public static int GetShipsDestroyed() {
+    public static int GetShipsDestroyed()
+    {
         return shipsDestroyed;
     }
 
-    public static int GetObstaclesDestroyed() {
+    public static int GetObstaclesDestroyed()
+    {
         return obstaclesDestroyed;
     }
 
@@ -60,6 +64,10 @@ public class ScoreManager : MonoBehaviour
 
         if (Lives <= 0)
             GameManager.GameOver();
+    }
+
+    public static int GetHealth() {
+        return Lives;
     }
 
     void OnApplicationQuit()

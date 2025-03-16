@@ -28,7 +28,8 @@ public class Rock : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Lazer"))
         {
-            ScoreManager.IncrementScore(5);
+            ScoreManager.ObstacleDestroyed();
+            ScoreManager.IncrementScore(50);
             Destroy(gameObject);
         }
     }

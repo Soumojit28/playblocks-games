@@ -49,6 +49,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bddb2829-0d66-469d-8c8b-8c4ab473b393",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",

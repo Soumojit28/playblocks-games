@@ -27,11 +27,7 @@ public class SpaceShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float xPosition = Math.Clamp(
-            horizontalInput,
-            -horizontalMovementRange,
-            horizontalMovementRange
-        );
+        float xPosition = Math.Clamp(horizontalInput, -horizontalMovementRange, horizontalMovementRange);
         float yPosition =
             _transform.position.y + (moveVelocity * Time.fixedDeltaTime * Vector3.up).y;
 
@@ -40,6 +36,7 @@ public class SpaceShipController : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (GameManager.isGameOver) return;
         Vector2 inputPosition = context.ReadValue<Vector2>();
         Vector2 inputToWorldPosition = Camera.main.ScreenToWorldPoint(inputPosition);
         horizontalInput = inputToWorldPosition.x;
@@ -47,6 +44,7 @@ public class SpaceShipController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (GameManager.isGameOver) return;
         if (context.performed)
         {
             Instantiate(lazerPrefab, lazerEmitter.position, Quaternion.identity);

@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Lazer"))
         {
-            ScoreManager.IncrementScore(10);
+            ScoreManager.IncrementScore(100);
+            ScoreManager.ShipDestroyed();
             Destroy(gameObject);
         }
     }
