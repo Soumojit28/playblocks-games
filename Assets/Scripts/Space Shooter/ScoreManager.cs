@@ -11,6 +11,9 @@ public class ScoreManager : MonoBehaviour
 
     private static int Lives = maxLives;
 
+    private static int shipsDestroyed;
+    private static int obstaclesDestroyed;
+
     void Awake()
     {
         Instance = this;
@@ -20,6 +23,25 @@ public class ScoreManager : MonoBehaviour
     {
         Lives = maxLives;
         score = 0;
+
+        shipsDestroyed = 0;
+        obstaclesDestroyed = 0;
+    }
+
+    public static void ShipDestroyed () {
+        shipsDestroyed++;
+    }
+
+    public static void ObstacleDestroyed () {
+        obstaclesDestroyed++;
+    }
+
+    public static int GetShipsDestroyed() {
+        return shipsDestroyed;
+    }
+
+    public static int GetObstaclesDestroyed() {
+        return obstaclesDestroyed;
     }
 
     public static void IncrementScore(int amount)

@@ -1,5 +1,5 @@
 mergeInto(LibraryManager.library, {
-  WebGLGameOver: function (userName, score) {
-    window.dispatchReactUnityEvent("WebGLGameOver", UTF8ToString(userName), score);
+  WebGLGameOver: function (shipsDestroyed, obstaclesDestroyed) {
+    window.dispatchReactUnityEvent("WebGLGameOver", shipsDestroyed, obstaclesDestroyed);
   },
 });
