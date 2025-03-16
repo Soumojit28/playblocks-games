@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         isGameOver = true;
 
+        AudioManager.PlayAudio(AudioManager.GameAudio.GameOver);
+
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
         WebGLGameOver (ships, obstacles);
 #endif
@@ -36,8 +38,7 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame()
     {
-        FindFirstObjectByType<RockSpawner>().enabled = true;
-        FindFirstObjectByType<EnemySpawner>().enabled = true;
+        SceneManager.LoadScene(1);
 
         isGameOver = false;
     }

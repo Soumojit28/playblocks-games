@@ -18,11 +18,17 @@ public class SpaceShipController : MonoBehaviour
     [SerializeField]
     private Transform lazerEmitter;
 
+    [SerializeField]
+    private AudioClip lazerAudio;
+
     private float horizontalInput = 0.0f;
 
-    void Awake()
+    private AudioSource audioSource;
+
+    void Start()
     {
         _transform = GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -48,6 +54,7 @@ public class SpaceShipController : MonoBehaviour
         if (context.performed)
         {
             Instantiate(lazerPrefab, lazerEmitter.position, Quaternion.identity);
+            audioSource.PlayOneShot(lazerAudio);
         }
     }
 }
