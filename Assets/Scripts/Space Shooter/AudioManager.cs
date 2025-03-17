@@ -6,6 +6,10 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip gameOver;
+    [SerializeField]
+    private AudioClip damage;
+    [SerializeField]
+    private AudioClip destroy;
 
     private static AudioSource audioSource;
 
@@ -25,11 +29,21 @@ public class AudioManager : MonoBehaviour
                 audioSource.PlayOneShot(Instance.gameOver);
                 break;
             }
+            case GameAudio.Damage: {
+                audioSource.PlayOneShot(Instance.damage);
+                break;
+            }
+            case GameAudio.Destroy: {
+                audioSource.PlayOneShot(Instance.destroy);
+                break;
+            }
         }
     }
 
     public enum GameAudio
     {
-        GameOver
+        GameOver,
+        Damage,
+        Destroy
     }
 }

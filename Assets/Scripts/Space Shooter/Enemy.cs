@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
             ScoreManager.IncrementScore(100);
             ScoreManager.ShipDestroyed();
             Destroy(gameObject);
+            AudioManager.PlayAudio(AudioManager.GameAudio.Destroy);
         }
     }
 }

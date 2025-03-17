@@ -61,6 +61,8 @@ public class ScoreManager : MonoBehaviour
     public static void DecreaseLife()
     {
         Lives -= 1;
+        AudioManager.PlayAudio(AudioManager.GameAudio.Damage);
+        
 
         if (Lives <= 0)
             GameManager.GameOver();

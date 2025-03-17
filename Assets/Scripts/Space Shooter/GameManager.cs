@@ -11,14 +11,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public static bool isGameOver = false;
+    public static bool isPaused = false;
 
     private static float initialTimeScale;
 
     void Awake()
     {
         Instance = this;
-
-        initialTimeScale = Time.timeScale;
     }
 
     public static void GameOver()
@@ -47,12 +46,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         FindFirstObjectByType<SpaceShipController>().enabled = false;
+        isPaused = true;
     }
 
     public static void ResumeGame()
     {
-        Time.timeScale = initialTimeScale;
+        Time.timeScale = 1f;
         FindFirstObjectByType<SpaceShipController>().enabled = true;
+        isPaused = false;
     }
 
     public static void Restart()
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
         // reset scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-        Time.timeScale = initialTimeScale;
+        Time.timeScale = 1f;
         isGameOver = false;
     }
 

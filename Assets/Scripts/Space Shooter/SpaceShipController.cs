@@ -29,6 +29,7 @@ public class SpaceShipController : MonoBehaviour
     {
         _transform = GetComponent<Transform>();
         audioSource = GetComponent<AudioSource>();
+        // Debug.Log(Time.timeScale);
     }
 
     void FixedUpdate()

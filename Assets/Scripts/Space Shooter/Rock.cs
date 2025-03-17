@@ -31,6 +31,7 @@ public class Rock : MonoBehaviour
             ScoreManager.ObstacleDestroyed();
             ScoreManager.IncrementScore(50);
             Destroy(gameObject);
+            AudioManager.PlayAudio(AudioManager.GameAudio.Destroy);
         }
     }
 }
