@@ -14,9 +14,6 @@ public class RockSpawner : MonoBehaviour
     private float spawnRange = 10.0f;
 
     [SerializeField]
-    private Vector2 initialForce = new Vector2(1, 5);
-
-    [SerializeField]
     private int spawnDelay = 3;
 
     [SerializeField]
@@ -25,6 +22,8 @@ public class RockSpawner : MonoBehaviour
     private Transform spaceShipTransform;
 
     private int activeRocks;
+
+    private float totalSpawnChance;
 
     void Awake()
     {
@@ -35,7 +34,12 @@ public class RockSpawner : MonoBehaviour
     {
         spaceShipTransform = FindFirstObjectByType<SpaceShipController>().GetComponent<Transform>();
 
-        InvokeRepeating("SpawnRock", 0, spawnDelay);
+        InvokeRepeating(nameof(SpawnRock), 0, spawnDelay);
+
+        foreach (var prefab in RockPrefabs)
+        {
+            totalSpawnChance += prefab.GetComponent<Rock>().rockData.spawnChance;
+        }
     }
 
     void FixedUpdate()
@@ -45,7 +49,8 @@ public class RockSpawner : MonoBehaviour
 
     void SpawnRock()
     {
-        if (activeRocks >= maxRocks) return;
+        if (activeRocks >= maxRocks)
+            return;
 
         float randomX = Random.Range(-spawnRange, spawnRange);
         Vector3 spawnPosition = new Vector3(
@@ -54,25 +59,22 @@ public class RockSpawner : MonoBehaviour
             0
         );
 
-        int randomPrefab = Random.Range(0, RockPrefabs.Length);
-        GameObject rock = Instantiate(
-            RockPrefabs[randomPrefab],
-            spawnPosition,
-            Quaternion.identity
-        );
+        float randomValue = Random.Range(0, totalSpawnChance);
+        float cumulativeChance = 0f;
+        int randomPrefab = 0;
 
-        Rigidbody2D rb = rock.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        for (int i = 0; i < RockPrefabs.Length; i++)
         {
-            Vector2 forceDirection = (
-                spaceShipTransform.position - rock.transform.position
-            ).normalized;
-            rb.AddForce(
-                forceDirection * rb.mass * Random.Range(initialForce.x, initialForce.y),
-                ForceMode2D.Impulse
-            );
-            rb.AddTorque(Random.Range(initialForce.x * 50, initialForce.y * 50));
+            cumulativeChance += RockPrefabs[i].GetComponent<Rock>().rockData.spawnChance;
+            if (randomValue < cumulativeChance)
+            {
+                randomPrefab = i;
+                break;
+            }
         }
+        
+        Instantiate(RockPrefabs[randomPrefab], spawnPosition, Quaternion.identity)
+            .GetComponent<Rock>();
     }
 
     void OnApplicationQuit()

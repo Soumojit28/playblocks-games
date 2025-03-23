@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
         {
             // Check if player is in front of the enemy
             RaycastHit2D hit = Physics2D.Raycast(lazerEmitter.position, Vector2.down);
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider && hit.collider.CompareTag("Player"))
             {
                 ShootLazer();
             }
