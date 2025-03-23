@@ -2074,8 +2074,8 @@ MonoBehaviour:
   spawnDistance: 15
   spawnRange: 5
   initialForce: {x: 1, y: 2.5}
-  spawnDelay: 2
-  maxRocks: 3
+  spawnDelay: 4
+  maxRocks: 2
 --- !u!4 &1869404423
 Transform:
   m_ObjectHideFlags: 0
