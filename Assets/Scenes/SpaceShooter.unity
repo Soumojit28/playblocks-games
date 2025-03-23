@@ -2070,6 +2070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RockPrefabs:
   - {fileID: 9157414893965909560, guid: 8079f7df67c67b941801174731cdad15, type: 3}
+  - {fileID: 7951425032833018103, guid: dde466173379eca4ba8e85470d0aef33, type: 3}
   spawnDistance: 15
   spawnRange: 5
   initialForce: {x: 1, y: 2.5}

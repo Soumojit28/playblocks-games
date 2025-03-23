@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Rock : MonoBehaviour
+public class HealthRock : MonoBehaviour
 {
     private Transform spaceShipTransform;
 
@@ -20,18 +20,11 @@ public class Rock : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            ScoreManager.DecreaseLife();
-        }
-
         if (collision.gameObject.CompareTag("Lazer"))
         {
-            ScoreManager.ObstacleDestroyed();
-            ScoreManager.IncrementScore(50);
+            ScoreManager.IncreaseLife();
+            Destroy(gameObject);
             AudioManager.PlayAudio(AudioManager.GameAudio.Destroy);
         }
-        
-        if (!collision.gameObject.CompareTag("Enemy")) Destroy(gameObject);
     }
 }

@@ -9,6 +9,9 @@ public class Lazer : MonoBehaviour
     [SerializeField]
     private float speed = 15.0f;
 
+    [SerializeField]
+    private bool enemyLazer = false;
+
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -18,7 +21,7 @@ public class Lazer : MonoBehaviour
 
     void FixedUpdate()
     {
-        _rigidBody.linearVelocityY = speed;
+        _rigidBody.linearVelocityY = enemyLazer ? -speed : speed;
 
         if (Mathf.Abs(transform.position.y - spaceShipPosition.position.y) > 15)
         {
@@ -28,9 +31,15 @@ public class Lazer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Rock"))
+        if (enemyLazer && collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            ScoreManager.DecreaseLife();
         }
+
+        if (
+            !(enemyLazer && collision.gameObject.CompareTag("Enemy"))
+            && !(!enemyLazer && collision.gameObject.CompareTag("Player"))
+        )
+            Destroy(gameObject);
     }
 }

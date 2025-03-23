@@ -68,6 +68,11 @@ public class ScoreManager : MonoBehaviour
             GameManager.GameOver();
     }
 
+    public static void IncreaseLife()
+    {
+        Lives += 1;
+    }
+
     public static int GetHealth() {
         return Lives;
     }
