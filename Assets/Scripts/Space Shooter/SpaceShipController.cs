@@ -72,7 +72,7 @@ public class SpaceShipController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (GameManager.isGameOver)
+        if (GameManager.isGameOver || GameManager.isPaused)
             return;
         if (context.performed)
         {
@@ -97,6 +97,33 @@ public class SpaceShipController : MonoBehaviour
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
         WebGLPowerUpActive (duration);
+#endif
+    }
+
+    public void OnRestart(InputAction.CallbackContext context)
+    {
+#if UNITY_EDITOR
+        if (context.performed)
+        {
+            GameManager.Restart();
+        }
+#endif
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+#if UNITY_EDITOR
+        if (context.performed)
+        {
+            if (GameManager.isPaused)
+            {
+                GameManager.ResumeGame();
+            }
+            else
+            {
+                GameManager.PauseGame();
+            }
+        }
 #endif
     }
 }

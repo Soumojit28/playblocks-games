@@ -18,8 +18,14 @@ public class ScoreManager : MonoBehaviour
     {
         Instance = this;
     }
+    
 
     void Start()
+    {
+        Reset();
+    }
+
+    internal void Reset()
     {
         Lives = maxLives;
         score = 0;

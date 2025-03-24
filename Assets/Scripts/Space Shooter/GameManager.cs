@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -58,8 +57,11 @@ public class GameManager : MonoBehaviour
 
     public static void Restart()
     {
+        if (!isGameOver)
+            return;
         // reset scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        ScoreManager.Instance.Reset();
 
         Time.timeScale = 1f;
         isGameOver = false;
