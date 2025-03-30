@@ -6,4 +6,8 @@ mergeInto(LibraryManager.library, {
   WebGLPowerUpActive: function (duration) {
     window.dispatchReactUnityEvent("WebGLPowerUpActive", duration);
   },
+  
+  WebGLShipBossDefeated: function () {
+    window.dispatchReactUnityEvent("WebGLShipBossDefeated");
+  },
 });

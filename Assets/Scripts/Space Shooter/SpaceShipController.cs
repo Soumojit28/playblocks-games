@@ -90,7 +90,7 @@ public class SpaceShipController : MonoBehaviour
         }
     }
 
-    internal void ActivatePowerUp(float duration = 40f)
+    internal void ActivatePowerUp(float duration = 10f)
     {
         powerUpEndTime = Time.fixedTime + duration;
         powerUpActive = true;

@@ -42,4 +42,8 @@ public class Lazer : MonoBehaviour
         )
             Destroy(gameObject);
     }
+
+    internal bool IsEnemyLazer() {
+        return enemyLazer;
+    }
 }

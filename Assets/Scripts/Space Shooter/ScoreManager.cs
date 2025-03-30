@@ -18,7 +18,6 @@ public class ScoreManager : MonoBehaviour
     {
         Instance = this;
     }
-    
 
     void Start()
     {
@@ -68,7 +67,6 @@ public class ScoreManager : MonoBehaviour
     {
         Lives -= 1;
         AudioManager.PlayAudio(AudioManager.GameAudio.Damage);
-        
 
         if (Lives <= 0)
             GameManager.GameOver();
@@ -79,7 +77,8 @@ public class ScoreManager : MonoBehaviour
         Lives += 1;
     }
 
-    public static int GetHealth() {
+    public static int GetHealth()
+    {
         return Lives;
     }
 
