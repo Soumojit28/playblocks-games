@@ -33,7 +33,7 @@ public class Lazer : MonoBehaviour
     {
         if (enemyLazer && collision.gameObject.CompareTag("Player"))
         {
-            ScoreManager.DecreaseLife();
+            GameManager.GetPlayer().DecreaseLife();
         }
 
         if (

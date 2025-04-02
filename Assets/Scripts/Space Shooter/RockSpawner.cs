@@ -13,12 +13,6 @@ public class RockSpawner : MonoBehaviour
     [SerializeField]
     private float spawnRange = 10.0f;
 
-    [SerializeField]
-    private int spawnDelay = 3;
-
-    [SerializeField]
-    private int maxRocks = 3;
-
     private Transform spaceShipTransform;
 
     private int activeRocks;
@@ -34,7 +28,7 @@ public class RockSpawner : MonoBehaviour
     {
         spaceShipTransform = FindFirstObjectByType<SpaceShipController>().GetComponent<Transform>();
 
-        InvokeRepeating(nameof(SpawnRock), 0, spawnDelay);
+        SpawnRock();
 
         foreach (var prefab in RockPrefabs)
         {
@@ -49,7 +43,13 @@ public class RockSpawner : MonoBehaviour
 
     void SpawnRock()
     {
-        if (activeRocks >= maxRocks)
+        LevelConfig.RockSpawnerConfig rockSpawnerConfig = ScoreManager
+            .GetLevelConfig()
+            .rockSpawnerConfig;
+
+        Invoke(nameof(SpawnRock), rockSpawnerConfig.spawnDelay);
+
+        if (activeRocks >= rockSpawnerConfig.maxRocks || !rockSpawnerConfig.spwanRocks)
             return;
 
         float randomX = Random.Range(-spawnRange, spawnRange);
@@ -72,9 +72,8 @@ public class RockSpawner : MonoBehaviour
                 break;
             }
         }
-        
-        Instantiate(RockPrefabs[randomPrefab], spawnPosition, Quaternion.identity)
-            .GetComponent<Rock>();
+
+        Instantiate(RockPrefabs[randomPrefab], spawnPosition, Quaternion.identity);
     }
 
     void OnApplicationQuit()

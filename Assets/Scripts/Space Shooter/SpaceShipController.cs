@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,14 @@ public class SpaceShipController : MonoBehaviour
     private static extern void WebGLPowerUpActive(float duration);
 
     Transform _transform;
+
+    [SerializeField]
+    private int initialLives = 3;
+    private int currentLives;
+
+    [SerializeField]
+    private float invincibleTimer = 2.0f;
+    private bool isInvincible;
 
     [SerializeField]
     private float moveVelocity = 1.0f;
@@ -36,10 +45,16 @@ public class SpaceShipController : MonoBehaviour
 
     private float powerUpEndTime;
 
+    private static Animator _animator;
+
     void Start()
     {
         _transform = GetComponent<Transform>();
         audioSource = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
+
+        currentLives = initialLives;
+        isInvincible = false;
     }
 
     void FixedUpdate()
@@ -88,6 +103,39 @@ public class SpaceShipController : MonoBehaviour
 
             audioSource.PlayOneShot(lazerAudio);
         }
+    }
+
+    internal void DecreaseLife()
+    {
+        if (isInvincible)
+            return;
+
+        currentLives -= 1;
+        AudioManager.PlayAudio(AudioManager.GameAudio.Damage);
+
+        isInvincible = true;
+        _animator.SetTrigger("Damage");
+
+        if (currentLives <= 0)
+            GameManager.GameOver();
+
+        Invoke(nameof(ResetInvicibility), invincibleTimer);
+    }
+
+    private void ResetInvicibility()
+    {
+        isInvincible = false;
+        _animator.SetTrigger("Damage");
+    }
+
+    internal void IncreaseLife()
+    {
+        currentLives += 1;
+    }
+
+    internal int GetHealth()
+    {
+        return currentLives;
     }
 
     internal void ActivatePowerUp(float duration = 10f)

@@ -9,46 +9,65 @@ public class HUD : MonoBehaviour
     private TextMeshProUGUI scoreUI;
 
     [SerializeField]
-    private TextMeshProUGUI destroyedUI;
+    private TextMeshProUGUI destroyedText;
 
     [SerializeField]
     private TextMeshProUGUI healthUI;
 
     [SerializeField]
-    private TextMeshProUGUI bossHealth;
+    private TextMeshProUGUI bossHealthText;
 
     [SerializeField]
     private Image bossHealthBar;
+
+    [SerializeField]
+    private GameObject destroyedUI;
+
+    [SerializeField]
+    private GameObject bossHealthUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreUI.text = (0).ToString();
-        destroyedUI.text = (0).ToString();
-        healthUI.text = "x" + ScoreManager.GetHealth();
+        destroyedText.text = (0).ToString();
+        healthUI.text = "x" + GameManager.GetPlayer().GetHealth();
 
-        int bossHealthValue = FindFirstObjectByType<ShipBoss>().GetHealthPercentage();
-        bossHealth.text = bossHealthValue + "%";
-        bossHealthBar.rectTransform.sizeDelta = new Vector2(
-            bossHealthValue,
-            bossHealthBar.rectTransform.sizeDelta.y
-        );
+        ShipBoss shipBoss = FindFirstObjectByType<ShipBoss>();
+        if (shipBoss)
+        {
+            bossHealthText.text = shipBoss.GetHealthPercentage() + "%";
+            bossHealthBar.rectTransform.sizeDelta = new Vector2(
+                shipBoss.GetHealthPercentage(),
+                bossHealthBar.rectTransform.sizeDelta.y
+            );
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         scoreUI.text = ScoreManager.GetScore().ToString();
-        destroyedUI.text = (
+        destroyedText.text = (
             ScoreManager.GetObstaclesDestroyed() + ScoreManager.GetShipsDestroyed()
         ).ToString();
-        healthUI.text = ("x" + ScoreManager.GetHealth());
+        healthUI.text = "x" + GameManager.GetPlayer().GetHealth();
 
-        int bossHealthValue = FindFirstObjectByType<ShipBoss>().GetHealthPercentage();
-        bossHealth.text = bossHealthValue + "%";
-        bossHealthBar.rectTransform.sizeDelta = new Vector2(
-            bossHealthValue,
-            bossHealthBar.rectTransform.sizeDelta.y
-        );
+        ShipBoss shipBoss = FindFirstObjectByType<ShipBoss>();
+        if (shipBoss)
+        {
+            destroyedUI.SetActive(false);
+            bossHealthUI.SetActive(true);
+            bossHealthText.text = shipBoss.GetHealthPercentage() + "%";
+            bossHealthBar.rectTransform.sizeDelta = new Vector2(
+                shipBoss.GetHealthPercentage(),
+                bossHealthBar.rectTransform.sizeDelta.y
+            );
+        }
+        else
+        {
+            destroyedUI.SetActive(true);
+            bossHealthUI.SetActive(false);
+        }
     }
 }

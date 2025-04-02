@@ -56,7 +56,7 @@ public class Rock : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            ScoreManager.DecreaseLife();
+            GameManager.GetPlayer().DecreaseLife();
         }
 
         if (collision.CompareTag("Lazer"))
@@ -73,7 +73,7 @@ public class Rock : MonoBehaviour
     {
         if (collision.CompareTag("Lazer"))
         {
-            ScoreManager.IncreaseLife();
+            GameManager.GetPlayer().IncreaseLife();
             DestroyRock();
         }
     }

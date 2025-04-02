@@ -1,8 +1,12 @@
 using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class ShipBoss : MonoBehaviour
 {
+    [DllImport("__Internal")]
+    private static extern void WebGLShipBossDefeated();
+
     [System.Serializable]
     public class Emitter
     {
@@ -63,23 +67,6 @@ public class ShipBoss : MonoBehaviour
                 parentTransform.position.y + (moveVelocity * Time.fixedDeltaTime * Vector3.up).y;
             parentTransform.position = new Vector3(parentTransform.position.x, yPosition);
         }
-
-        if (currentHealth <= (0.7 * maxHealth))
-        {
-            Debug.Log("Stage 2");
-            _animator.SetInteger("Stage", 2);
-        }
-
-        if (currentHealth <= (0.4 * maxHealth))
-        {
-            Debug.Log("Stage 3");
-            _animator.SetInteger("Stage", 3);
-        }
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     internal void FireLazer()
@@ -123,7 +110,8 @@ public class ShipBoss : MonoBehaviour
         );
     }
 
-    internal int GetHealthPercentage() {
+    internal int GetHealthPercentage()
+    {
         return (int)((float)currentHealth / maxHealth * 100);
     }
 
@@ -132,6 +120,25 @@ public class ShipBoss : MonoBehaviour
         if (collision.gameObject.CompareTag("Lazer"))
         {
             currentHealth--;
+        }
+
+        if (currentHealth <= (0.7 * maxHealth))
+        {
+            _animator.SetInteger("Stage", 2);
+        }
+
+        if (currentHealth <= (0.4 * maxHealth))
+        {
+            _animator.SetInteger("Stage", 3);
+        }
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+            ScoreManager.ProgressLevel();
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+        WebGLShipBossDefeated ();
+#endif
         }
     }
 }

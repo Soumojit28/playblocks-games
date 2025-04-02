@@ -13,12 +13,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float spawnRange = 2.5f;
 
-    [SerializeField]
-    private int spawnDelay = 5;
-
-    [SerializeField]
-    private int maxEnemies = 2;
-
     private Transform spaceShipTransform;
 
     private int activeEnemies;
@@ -32,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     {
         spaceShipTransform = FindFirstObjectByType<SpaceShipController>().GetComponent<Transform>();
 
-        InvokeRepeating("SpawnEnemy", 0, spawnDelay);
+        SpawnEnemy();
     }
 
     // Update is called once per frame
@@ -43,7 +37,13 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if (activeEnemies >= maxEnemies)
+        LevelConfig.EnemySpawnerConfig enemySpawnerConfig = ScoreManager
+            .GetLevelConfig()
+            .enemySpawnerConfig;
+
+        Invoke(nameof(SpawnEnemy), enemySpawnerConfig.spawnDelay);
+
+        if (activeEnemies >= enemySpawnerConfig.maxEnemies || !enemySpawnerConfig.spawnEnemies)
             return;
 
         float randomX = Random.Range(-spawnRange, spawnRange);

@@ -6,8 +6,10 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip gameOver;
+
     [SerializeField]
     private AudioClip damage;
+
     [SerializeField]
     private AudioClip destroy;
 
@@ -23,17 +25,22 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlayAudio(GameAudio gameAudio) {
-        switch (gameAudio) {
-            case GameAudio.GameOver: {
+    public static void PlayAudio(GameAudio gameAudio)
+    {
+        switch (gameAudio)
+        {
+            case GameAudio.GameOver:
+            {
                 audioSource.PlayOneShot(Instance.gameOver);
                 break;
             }
-            case GameAudio.Damage: {
+            case GameAudio.Damage:
+            {
                 audioSource.PlayOneShot(Instance.damage);
                 break;
             }
-            case GameAudio.Destroy: {
+            case GameAudio.Destroy:
+            {
                 audioSource.PlayOneShot(Instance.destroy);
                 break;
             }
@@ -44,6 +51,6 @@ public class AudioManager : MonoBehaviour
     {
         GameOver,
         Damage,
-        Destroy
+        Destroy,
     }
 }

@@ -37,7 +37,7 @@ public class Rocket : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ScoreManager.DecreaseLife();
+            GameManager.GetPlayer().DecreaseLife();
             Destroy(gameObject);
         }
 

@@ -67,6 +67,10 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
     }
 
+    public static SpaceShipController GetPlayer() {
+        return FindFirstObjectByType<SpaceShipController>();
+    }
+
     void OnApplicationQuit()
     {
         Instance = null;

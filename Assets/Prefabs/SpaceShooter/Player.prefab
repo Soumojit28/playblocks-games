@@ -4909,6 +4909,7 @@ GameObject:
   - component: {fileID: 661420963748628027}
   - component: {fileID: 4366001992263983465}
   - component: {fileID: 1978899892041865126}
+  - component: {fileID: 6521007126685811532}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5066,6 +5067,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c793abddf687887499a5d37397e6cb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialLives: 3
+  invincibleTimer: 1.5
   moveVelocity: 1
   horizontalMovementRange: 5
   lazerPrefab: {fileID: 6540701370515214040, guid: a0ab7aae6cd0b7041899289cb5c50d4b, type: 3}
@@ -5305,6 +5308,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &6521007126685811532
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652153024377036755}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4858a044e3bc9cc4d87b84a15fdd98ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6341121597907551651
 GameObject:
   m_ObjectHideFlags: 0
