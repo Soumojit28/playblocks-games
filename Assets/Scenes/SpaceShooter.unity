@@ -1072,7 +1072,7 @@ MonoBehaviour:
     thresholdPoints: 2000
     autoProgress: 1
   - levelConfig: {fileID: 11400000, guid: bc89276d3101b204795e98e5e1a2d0ef, type: 2}
-    thresholdPoints: 2000
+    thresholdPoints: 10000
     autoProgress: 0
   - levelConfig: {fileID: 11400000, guid: f409720f2db2df74199bab04a4fa1ed2, type: 2}
     thresholdPoints: 10000

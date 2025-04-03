@@ -16,6 +16,9 @@ public class SpaceShipController : MonoBehaviour
     private int currentLives;
 
     [SerializeField]
+    private int maxLives = 10;
+
+    [SerializeField]
     private float invincibleTimer = 2.0f;
     private bool isInvincible;
 
@@ -73,6 +76,7 @@ public class SpaceShipController : MonoBehaviour
         if (powerUpActive && Time.fixedTime > powerUpEndTime)
         {
             powerUpActive = false;
+            powerUpEndTime = 0;
         }
     }
 
@@ -130,7 +134,8 @@ public class SpaceShipController : MonoBehaviour
 
     internal void IncreaseLife()
     {
-        currentLives += 1;
+        if (currentLives < maxLives)
+            currentLives += 1;
     }
 
     internal int GetHealth()
@@ -140,7 +145,10 @@ public class SpaceShipController : MonoBehaviour
 
     internal void ActivatePowerUp(float duration = 10f)
     {
-        powerUpEndTime = Time.fixedTime + duration;
+        if (powerUpEndTime == 0)
+            powerUpEndTime += Time.fixedTime;
+
+        powerUpEndTime += duration;
         powerUpActive = true;
 
 #if UNITY_WEBGL == true && UNITY_EDITOR == false

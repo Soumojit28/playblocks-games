@@ -39,7 +39,8 @@ public class Rock : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (rockData.type) {
+        switch (rockData.type)
+        {
             case RockData.Type.Asteroid:
                 HandleAsteroidCollision(collision.gameObject);
                 break;
@@ -73,8 +74,11 @@ public class Rock : MonoBehaviour
     {
         if (collision.CompareTag("Lazer"))
         {
-            GameManager.GetPlayer().IncreaseLife();
-            DestroyRock();
+            if (!collision.GetComponent<Lazer>().IsEnemyLazer())
+            {
+                GameManager.GetPlayer().IncreaseLife();
+                DestroyRock();
+            }
         }
     }
 
@@ -82,8 +86,13 @@ public class Rock : MonoBehaviour
     {
         if (collision.CompareTag("Lazer"))
         {
-            FindFirstObjectByType<SpaceShipController>().GetComponent<SpaceShipController>().ActivatePowerUp();
-            DestroyRock();
+            if (!collision.gameObject.GetComponent<Lazer>().IsEnemyLazer())
+            {
+                FindFirstObjectByType<SpaceShipController>()
+                    .GetComponent<SpaceShipController>()
+                    .ActivatePowerUp();
+                DestroyRock();
+            }
         }
     }
 }

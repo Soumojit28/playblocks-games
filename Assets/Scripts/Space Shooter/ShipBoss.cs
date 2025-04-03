@@ -135,7 +135,10 @@ public class ShipBoss : MonoBehaviour
         if (currentHealth <= 0)
         {
             Destroy(gameObject);
+            
+            ScoreManager.IncrementScore(500);
             ScoreManager.ProgressLevel();
+
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
         WebGLShipBossDefeated ();
 #endif

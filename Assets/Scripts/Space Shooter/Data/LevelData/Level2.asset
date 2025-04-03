@@ -18,10 +18,10 @@ MonoBehaviour:
     maxRocks: 2
   enemySpawnerConfig:
     spawnEnemies: 1
-    spawnDelay: 3
+    spawnDelay: 2
     maxEnemies: 3
     enemyHealth: 1
-    enemySpeed: 2
+    enemySpeed: 2.5
   bossSpawnerConfig:
     spawnBoss: 0
     bossPrefab: {fileID: 0}

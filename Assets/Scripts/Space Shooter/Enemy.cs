@@ -73,6 +73,10 @@ public class Enemy : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Lazer"))
         {
+            bool enemyLazer = collision.gameObject.GetComponent<Lazer>().IsEnemyLazer();
+            if (enemyLazer)
+                return;
+
             currentHealth--;
 
             if (currentHealth <= 0)
